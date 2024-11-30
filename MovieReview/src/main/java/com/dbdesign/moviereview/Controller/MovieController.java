@@ -8,6 +8,7 @@ import com.dbdesign.moviereview.Repository.MovieRepository;
 import com.dbdesign.moviereview.Repository.ReviewRepository;
 import com.dbdesign.moviereview.Service.MovieService;
 import com.dbdesign.moviereview.Service.ReviewService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
