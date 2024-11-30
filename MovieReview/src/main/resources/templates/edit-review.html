@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>리뷰 작성</title>
+    <title>리뷰 수정</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
@@ -102,9 +102,10 @@
 </head>
 <body>
 <form th:action="@{/movies/reviews}" method="post">
-    <h1>리뷰 작성</h1>
+    <h1>리뷰 수정</h1>
     <input type="hidden" name="movie_id" th:value="${movieId}">
     <input type="hidden" name="user_id" th:value="${loginUser}">
+    <input type="hidden" name="review_id" th:value="${review_id}">
 
     <label for="rating"></label>
     <fieldset class="rate">
@@ -132,7 +133,7 @@
     </fieldset>
 
     <label for="review_text"></label>
-    <textarea id="review_text" name="review_text" placeholder="리뷰 내용을 입력해주세요." required></textarea>
+    <textarea id="review_text" name="review_text" placeholder="수정할 내용을 입력해주세요." required></textarea>
 
     <button type="submit">Submit</button>
 </form>

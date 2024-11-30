@@ -5,11 +5,69 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Movie List</h1>
-<ul>
-    <li th:each="movie : ${movies}">
-        <a th:href="@{/movies/{id}(id=${movie.id})}" th:text="${movie.title}"></a>
-    </li>
-</ul>
+<header>
+    <h1>Movie Review</h1>
+</header>
+<main>
+    <ul class="movie-list">
+        <li class="movie-item" th:each="movie : ${movies}">
+            <img th:src="${tmdbImgUrl + movie.img_url}" alt="Movie Poster" class="movie-poster">
+            <a th:href="@{/movies/{id}(id=${movie.movie_id})}" class="movie-title" th:text="${movie.title}"></a>
+        </li>
+    </ul>
+    <!-- 카카오 로그인 버튼 -->
+    <div class="kakao-login-button" id="kakao-login-button">
+        <a th:href="${location}">
+            <img src="/images/kakao_login_medium_narrow.png" alt="카카오 로그인">
+        </a>
+    </div>
+</main>
+
+<script th:inline="javascript">
+    window.onload = function() {
+        const redirectUrl = /*[[${session.redirectUrl}]]*/ '';
+        const userInfo = [[${session.loginUser}]];
+        console.log("redirectUrl in JS", redirectUrl);
+        console.log("loginUser in JS", userInfo);
+
+        if (userInfo === null) {
+            document.getElementById('kakao-login-button').style.display = 'block';
+        }
+        else {
+            document.getElementById('kakao-login-button').style.display = 'none';
+        }
+
+        if (redirectUrl === 'login') {
+            alert('로그인 완료되었습니다!');
+            clearRedirectUrl();
+            setTimeout(function() {
+                window.location.href = '/movies';  // URL 문자열을 정확하게
+            }, 2000);
+
+
+        }
+        else if (redirectUrl === 'welcome') {
+            alert('회원가입이 완료되었습니다!');
+            clearRedirectUrl();
+            setTimeout(function() {
+                window.location.href = '/movies';  // URL 문자열을 정확하게
+            }, 2000);
+        }
+    }
+
+    function clearRedirectUrl() {
+        fetch('/movies/clear-redirect-url', { method: 'POST' })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Failed to clear redirectUrl:', response.statusText);
+                } else {
+                    console.log('redirectUrl cleared successfully.');
+                }
+            })
+            .catch(error => console.error('Error clearing redirectUrl:', error));
+    }
+</script>
+
+
 </body>
 </html>

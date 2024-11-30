@@ -3,13 +3,15 @@ package com.dbdesign.moviereview.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "Movie", schema = "DBDESIGN")
 public class Movie {
@@ -22,10 +24,6 @@ public class Movie {
     @Column(name = "title", nullable = false, length = 200)
     private String title;
 
-    @Size(max = 100)
-    @Column(name = "director", length = 100)
-    private String director;
-
     @Column(name = "release_date")
     private LocalDate release_date;
 
@@ -34,7 +32,10 @@ public class Movie {
     private String genre;
 
     @Lob
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Lob
+    @Column(name = "img_url", columnDefinition = "TEXT")
+    private String img_url;
 }

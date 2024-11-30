@@ -1,23 +1,107 @@
+/* 기본 스타일 초기화 */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 20px;
-    line-height: 1.6;
-}
-h1, h2 {
+    background-color: #f4f4f9;
     color: #333;
 }
-ul {
+
+/* 헤더 스타일 */
+header {
+    background-color: #444;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+/* 메인 컨테이너 */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* 영화 리스트 스타일 */
+.movie-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개 */
+    gap: 1rem;
     list-style: none;
     padding: 0;
+    margin: 0;
 }
-ul li {
-    margin: 5px 0;
+
+/* 영화 아이템 */
+.movie-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.2s;
 }
-a {
+
+.movie-item:hover {
+    transform: translateY(-5px);
+}
+
+/* 영화 포스터 */
+.movie-poster {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+/* 영화 제목 */
+.movie-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #444;
     text-decoration: none;
-    color: #007BFF;
+    display: block;
+    margin-top: 0.5rem;
+    transition: color 0.2s;
 }
-a:hover {
-    text-decoration: underline;
+
+.movie-title:hover {
+    color: #e74c3c;
+}
+
+/* 반응형 처리 */
+@media (max-width: 768px) {
+    .movie-list {
+        grid-template-columns: repeat(3, 1fr); /* 작은 화면에서는 3개씩 */
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-list {
+        grid-template-columns: repeat(2, 1fr); /* 더 작은 화면에서는 2개씩 */
+    }
+}
+
+/* 카카오 로그인 버튼 오른쪽 상단 배치 */
+.kakao-login-button {
+    position: absolute;
+    top: 20px; /* 화면 상단에서 20px 떨어짐 */
+    right: 20px; /* 화면 오른쪽에서 20px 떨어짐 */
+    z-index: 1000; /* 다른 요소 위에 위치하도록 설정 */
+}
+
+.kakao-login-button img {
+    width: 150px; /* 버튼 크기 조정 */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.kakao-login-button img:hover {
+    transform: scale(1.1); /* 마우스 오버 시 버튼 확대 효과 */
 }

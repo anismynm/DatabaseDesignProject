@@ -3,22 +3,297 @@
 <head>
     <title th:text="${movie.title}">Movie Detail</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .home-button {
+            display: inline-block;
+            position: relative;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50%;
+            font-size: 20px;
+            text-align: center;
+            width: 25px;
+            height: 25px;
+            line-height: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+            transform: translate(10px, 10px);
+        }
+
+        .home-button i {
+            vertical-align: middle;
+        }
+
+        .home-button:hover {
+            background-color: #218838;
+            transform: translate(10px, 10px) scale(1.1);
+        }
+
+        .movie-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #dee2e6;
+            position: relative;
+        }
+
+        .movie-poster {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .movie-details {
+            flex: 1;
+        }
+
+        .movie-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .movie-meta {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .rating-avg {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ffc107;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .movie-description {
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .reviews {
+            padding: 20px;
+            background: #f1f3f5;
+        }
+
+        .review-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .review-item strong {
+            font-size: 14px;
+            color: #ffc107;
+        }
+
+        .review-user {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .write-review {
+            display: block;
+            text-align: center;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .write-review:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+        }
+
+        .btn-edit, .btn-delete {
+            display: inline-flex; /* 플렉스 박스 사용 */
+            align-items: center; /* 수직 가운데 정렬 */
+            justify-content: center; /* 수평 가운데 정렬 */
+            width: 30px; /* 버튼 크기 (너비) */
+            height: 30px; /* 버튼 크기 (높이) */
+            border-radius: 50%; /* 원형 버튼 */
+            text-decoration: none; /* 밑줄 제거 */
+            font-size: 15px; /* 아이콘 크기 */
+            color: #fff; /* 텍스트/아이콘 색상 */
+        }
+
+        .btn-edit {
+            background-color: #ffc107; /* 수정 버튼 색상 */
+            margin-right: 10px; /* 버튼 간 간격 */
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800; /* 호버 시 색상 */
+            transform: scale(1.1); /* 호버 시 크기 증가 */
+        }
+
+        .btn-delete {
+            background-color: #dc3545; /* 삭제 버튼 색상 */
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333; /* 호버 시 색상 */
+            transform: scale(1.1); /* 호버 시 크기 증가 */
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+    </style>
 </head>
 <body>
-<h1 th:text="${movie.title}"></h1>
-<p><strong>Director:</strong> <span th:text="${movie.director}"></span></p>
-<p><strong>Release Date:</strong> <span th:text="${movie.releaseDate}"></span></p>
-<p><strong>Genre:</strong> <span th:text="${movie.genre}"></span></p>
-<p th:text="${movie.description}"></p>
+<div class="container">
+    <!-- 홈 버튼 추가 -->
+    <a class="home-button" th:href="@{/movies}">
+        <i class="fas fa-home"></i>
+    </a>
 
-<h2>Reviews</h2>
-<ul>
-    <li th:each="review : ${movie.reviews}">
-        <strong th:text="${review.rating} + ' ★'"></strong> -
-        <span th:text="${review.reviewText}"></span>
-    </li>
-</ul>
+    <!-- 에러 메시지 표시 -->
+    <div th:if="${errorMessage}" style="color: red; font-weight: bold; text-align: center; margin-bottom: 10px;
+        animation: fadeInOut 3s forwards;">
+        <p th:text="${errorMessage}"></p>
+    </div>
 
-<a th:href="@{/movies/{id}/review(id=${movie.id})}">Write a Review</a>
+    <!-- 삭제 메시지 표시 -->
+    <div th:if="${deleteMessage}" style="color: green; font-weight: bold; text-align: center; margin-bottom: 10px;
+        animation: fadeInOut 3s forwards;">
+        <p th:text="${deleteMessage}"></p>
+    </div>
+
+    <!-- 수정 메시지 표시 -->
+    <div th:if="${editMessage}" style="color: green; font-weight: bold; text-align: center; margin-bottom: 10px;
+        animation: fadeInOut 3s forwards;">
+        <p th:text="${editMessage}"></p>
+    </div>
+
+    <!-- 삭제 메시지 표시 -->
+    <div th:if="${submitMessage}" style="color: green; font-weight: bold; text-align: center; margin-bottom: 10px;
+        animation: fadeInOut 3s forwards;">
+        <p th:text="${submitMessage}"></p>
+    </div>
+
+    <div class="movie-header">
+        <img th:src="${tmdbImgUrl + movie.img_url}" alt="Movie Poster" class="movie-poster">
+        <div class="movie-details">
+            <h1 class="movie-title" th:text="${movie.title}"></h1>
+            <p class="movie-meta">
+                <strong>Release Date:</strong> <span th:text="${movie.release_date}"></span><br>
+                <strong>Genre:</strong> <span th:text="${movie.genre}"></span>
+            </p>
+        </div>
+        <div class="rating-avg" th:if="${rating_avg != null}" th:text="'★ ' + ${rating_avg} + ' / 5'"></div>
+    </div>
+    <div class="movie-description" th:text="${movie.description}"></div>
+
+    <div class="reviews">
+        <h2>리뷰 목록</h2>
+        <ul>
+            <li th:each="review : ${reviews}" class="review-item">
+                <strong th:text="${review.rating} + ' ★'"></strong>
+                <span class="review-user" th:text="${review.user_id.name}"></span>
+                <span style="font-size: 12px; color: #6c757d; display: block; margin-top: 5px;" th:text="${review.review_date}"></span>
+                <p th:text="${review.review_text}"></p>
+
+                <div th:if="${review.user_id.user_id == loginUser.user_id}" style="text-align: right; margin-top: 10px;">
+                    <!-- 수정 버튼 -->
+                    <a class="btn btn-edit" th:href="@{/movies/{movie_id}/reviews/{review_id}/edit(movie_id=${movie.movie_id}, review_id=${review.review_id})}">
+                        <i class="fas fa-pen"></i>
+                    </a>
+
+                    <!-- 삭제 버튼 -->
+                    <a class="btn btn-delete" th:href="@{/movies/{movie_id}/reviews/{review_id}/delete(movie_id=${movie.movie_id}, review_id=${review.review_id})}"
+                       onclick="return confirm('리뷰를 삭제하시겠습니까?');">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
+    <a class="write-review" th:href="@{/movies/{id}/review(id=${movie.movie_id})}">Write a Review</a>
+</div>
 </body>
 </html>
+
+<script th:inline="javascript">
+    function openEditModal(movie_id, review_id, review_content) {
+        $('#editReviewModal').modal('show');
+        // Hidden input에 ID 설정
+        document.getElementById('movie_id').value = movie_id;
+        document.getElementById('review_id').value = review_id;
+
+        // 텍스트 영역에 기존 리뷰 내용 설정
+        document.getElementById('review_content').value = review_content;
+    }
+
+    document.getElementById('editReviewForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 폼 제출 막기
+
+        const movie_id = document.getElementById('movie_id').value;
+        const review_id = document.getElementById('review_id').value;
+        const review_content = document.getElementById('review_content').value;
+
+        fetch(`/movies/${movie_id}/reviews/${review_id}/edit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ review_content }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Review updated successfully!');
+                    console.log(review_content);
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    alert('Failed to update review.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
