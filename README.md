@@ -1,9 +1,6 @@
 # 데이터베이스설계 기말 프로젝트
 컴퓨터공학전공 2020112736 안성현
 
-# 영화 리뷰 플랫폼
-
-<br>
 <img width="780" src="https://github.com/anismynm/DatabaseDesignProject/blob/main/Img/Main.png">
 
 ## 🔎 프로젝트 소개
