@@ -11,7 +11,7 @@
 
 <br>
 
-  **Voisk 배포 URL** : http://211.188.49.69:8082/movies
+  **배포 URL** : http://211.188.49.69:8082/movies
 
 <br><br>
 
